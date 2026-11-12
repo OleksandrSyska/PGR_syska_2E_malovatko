@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class HelloApplication extends Application {
-    // VARS
     public void drawPolygon(GraphicsContext gc, double[] x, double[] y, Color color) {
         gc.setFill(color);
         gc.fillPolygon(x, y, x.length);
@@ -22,12 +21,7 @@ public class HelloApplication extends Application {
         gc.setStroke(Color.BLACK);
         gc.strokePolygon(x, y, x.length);
     }
-    public void drawPolygonNoBorder(
-            GraphicsContext gc,
-            double[] x,
-            double[] y,
-            Color color
-    ) {
+    public void drawPolygonNoStroke(GraphicsContext gc, double[] x, double[] y, Color color) {
         gc.setFill(color);
         gc.fillPolygon(x, y, x.length);
     }
@@ -36,6 +30,8 @@ public class HelloApplication extends Application {
     }
     @Override
     public void start(Stage stage) throws IOException {
+
+
         //FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         //Scene scene = new Scene(fxmlLoader.load(), 1200, 600);
 
@@ -43,11 +39,13 @@ public class HelloApplication extends Application {
 
         Button buttonFox = new Button("Liska");
         Button buttonDel = new Button("Smazat");
+        Button buttonSnehulak = new Button("Snehulak");
         VBox layout = new VBox();
         layout.setSpacing(50);
         HBox nav = new HBox();
         nav.getChildren().add(buttonFox);
         nav.getChildren().add(buttonDel);
+        nav.getChildren().add(buttonSnehulak);
         nav.setSpacing(20);
         Pane canvasWrap = new Pane();
         Canvas canvas = new Canvas(1196,500);
@@ -61,10 +59,7 @@ public class HelloApplication extends Application {
         root.getChildren().add(layout);
         GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        buttonFox.setOnAction(event -> {
-            gc.fillRect(50, 50, 200, 100);
 
-        });
         Color orange = Color.rgb(252, 101, 21);
         Color beige = Color.rgb(253, 218, 182);
         buttonFox.setOnAction(event -> {
@@ -209,7 +204,7 @@ public class HelloApplication extends Application {
                     Color.BLACK
             );
             //WHISKER
-            drawPolygonNoBorder(
+            drawPolygonNoStroke(
                     gc,
                     new double[]{
                             94, 97, 98, 102, 102, 108, 108, 119, 121, 123,
@@ -232,16 +227,28 @@ public class HelloApplication extends Application {
                             114, 113, 111, 109
                     },
                     beige
-
-                    
-
             );
         });
-
         buttonDel.setOnAction(event -> {
             clearCanvas(gc,canvas);
         });
-        clearCanvas(gc,canvas);
+        buttonSnehulak.setOnAction(event -> {
+            Kruh k1 = new Kruh();
+            Kruh k2 = new Kruh();
+            Kruh k3 = new Kruh();
+
+            k1.namaluj(gc,500,300,50);
+            k2.namaluj(gc,510,225,40);
+            k3.namaluj(gc,520,170,30);
+
+            Obdelnik o1 = new Obdelnik();
+            Obdelnik o2 = new Obdelnik();
+            Obdelnik o3 = new Obdelnik();
+
+            o1.namaluj(gc,520,130,60,50);
+
+
+        });
         Scene scene = new Scene(root, 1200, 600);
         stage.setTitle("Malovatko");
         stage.setScene(scene);
