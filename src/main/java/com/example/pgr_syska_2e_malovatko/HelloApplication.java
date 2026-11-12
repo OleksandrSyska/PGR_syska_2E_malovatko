@@ -22,6 +22,18 @@ public class HelloApplication extends Application {
         gc.setStroke(Color.BLACK);
         gc.strokePolygon(x, y, x.length);
     }
+    public void drawPolygonNoBorder(
+            GraphicsContext gc,
+            double[] x,
+            double[] y,
+            Color color
+    ) {
+        gc.setFill(color);
+        gc.fillPolygon(x, y, x.length);
+    }
+    public void clearCanvas(GraphicsContext gc,Canvas canvas) {
+        gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+    }
     @Override
     public void start(Stage stage) throws IOException {
         //FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
@@ -53,6 +65,8 @@ public class HelloApplication extends Application {
             gc.fillRect(50, 50, 200, 100);
 
         });
+        Color orange = Color.rgb(252, 101, 21);
+        Color beige = Color.rgb(253, 218, 182);
         buttonFox.setOnAction(event -> {
             //HEAD
             drawPolygon(
@@ -70,7 +84,7 @@ public class HelloApplication extends Application {
                             83, 88, 94, 99, 105, 109, 111, 113, 115, 120,
                             123, 127, 130
                     },
-                Color.ORANGE
+                    orange
             );
             //RIGHT EAR
             drawPolygon(
@@ -87,7 +101,7 @@ public class HelloApplication extends Application {
                             47, 56, 61, 68, 72, 72, 73, 74, 72, 70,
                             68, 64, 61, 58
                     },
-                    Color.ORANGE
+                    orange
             );
             //LEFT EAR
             drawPolygon(
@@ -102,7 +116,7 @@ public class HelloApplication extends Application {
                             61, 57, 57, 59, 61, 64, 67, 69, 72, 75,
                             78, 83, 87, 90, 93, 98, 102, 105
                     },
-                    Color.ORANGE
+                    orange
 
             );
             //BODY
@@ -132,7 +146,7 @@ public class HelloApplication extends Application {
                             143, 137, 134, 131, 128, 126, 130, 132, 134, 136,
                             137, 136, 137
                     },
-                    Color.ORANGE
+                    orange
             );
             //PAW
             drawPolygon(
@@ -145,7 +159,7 @@ public class HelloApplication extends Application {
                             155, 151, 147, 144, 137, 134, 130, 126, 122, 119,
                             118, 115, 116, 118, 121, 127, 132, 138, 145, 151, 155
                     },
-                    Color.ORANGE
+                    orange
             );
             //TAIL
             drawPolygon(
@@ -164,9 +178,70 @@ public class HelloApplication extends Application {
                             184, 190, 194, 198, 201, 203, 204, 201, 199, 195,
                             193, 188, 182, 178, 173, 170, 167, 164, 162
                     },
-                    Color.ORANGE
+                    orange
+            );
+            //L EYE
+            drawPolygon(
+                    gc,
+                    new double[]{
+                            119, 122, 122, 122, 122, 122, 121, 120, 118, 116,
+                            114, 113, 112, 112, 112, 112, 113, 114, 116, 118,
+                            120, 121, 122, 123, 122
+                    },
+                    new double[]{
+                            113, 111, 109, 106, 104, 102, 101, 100, 99, 99,
+                            100, 102, 103, 105, 107, 109, 110, 112, 113, 113,
+                            113, 111, 110, 107, 104
+                    },
+                    Color.BLACK
+            );
+            //R EYE
+            drawPolygon(
+                    gc,
+                    new double[]{
+                            155, 158, 159, 159, 159, 158, 156, 154, 152,
+                            150, 148, 147, 147, 147, 148, 150, 152, 155
+                    },
+                    new double[]{
+                            99, 98, 96, 93, 92, 90, 88, 86, 86,
+                            86, 88, 90, 92, 93, 95, 96, 98, 99
+                    },
+                    Color.BLACK
+            );
+            //WHISKER
+            drawPolygonNoBorder(
+                    gc,
+                    new double[]{
+                            94, 97, 98, 102, 102, 108, 108, 119, 121, 123,
+                            125, 128, 131, 135, 139, 142, 145, 149, 153, 156,
+                            158, 160, 163, 166, 168, 170, 173, 175, 176, 179,
+                            178, 177, 179, 182, 185, 186, 186, 185, 183, 182,
+                            181, 179, 177, 174, 173, 171, 169, 166, 163, 157,
+                            151, 147, 143, 144, 140, 137, 132, 127, 121, 115,
+                            108, 104, 99, 95, 92, 91, 90, 90, 92, 94,
+                            92, 88, 88, 90
+                    },
+                    new double[]{
+                            110, 111, 112, 112, 113, 113, 114, 114, 112, 110,
+                            107, 103, 100, 98, 97, 97, 97, 99, 99, 99,
+                            98, 97, 94, 91, 89, 86, 82, 79, 77, 78,
+                            81, 84, 85, 86, 87, 90, 94, 97, 101, 104,
+                            106, 108, 111, 114, 115, 117, 119, 121, 123, 126,
+                            129, 131, 132, 132, 133, 134, 135, 136, 136, 136,
+                            135, 134, 132, 130, 128, 126, 124, 122, 118, 116,
+                            114, 113, 111, 109
+                    },
+                    beige
+
+                    
+
             );
         });
+
+        buttonDel.setOnAction(event -> {
+            clearCanvas(gc,canvas);
+        });
+        clearCanvas(gc,canvas);
         Scene scene = new Scene(root, 1200, 600);
         stage.setTitle("Malovatko");
         stage.setScene(scene);
